@@ -5,6 +5,7 @@ import { logout } from "../login/actions";
 import { fetchLocations } from "./actions";
 import GaugeChart from "../ui/components/GaugeChart";
 import BarChart from "../ui/components/BarChart";
+import Button from "../ui/components/Button";
 
 const Page = () => {
   // const [filteredCharacters, setFilteredCharacters] = useState([]);
@@ -26,17 +27,26 @@ const Page = () => {
     fetchData();
   }, []);
 
-  console.log(locations);
   return (
-    <div>
-      <ChartCard>
-        <GaugeChart endpoint="locations" />
-      </ChartCard>
+    <div className="p-10">
+      <div className="grid grid-cols-3 gap-4 items-center justify-items-center">
+        <ChartCard label={"Residentes por planeta"}>
+          <GaugeChart endpoint="locations" />
+        </ChartCard>
 
-      <ChartCard>
-        <BarChart endpoint="locations" />
-      </ChartCard>
-      <button onClick={() => logout()}>Sair da conta</button>
+        <ChartCard label={"Residentes por planeta"}>
+          <BarChart endpoint="locations" />
+        </ChartCard>
+
+        <ChartCard label={"Residentes por planeta"}>
+          <BarChart endpoint="locations" />
+        </ChartCard>
+      </div>
+      <Button
+        // className="absolute bottom-10 left-10 "
+        label="Sair da conta"
+        onClick={() => logout()}
+      />
     </div>
   );
 };

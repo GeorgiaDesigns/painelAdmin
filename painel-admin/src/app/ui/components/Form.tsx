@@ -2,6 +2,7 @@
 
 import { login } from "@/app/login/actions";
 import { useActionState } from "react";
+import Button from "./Button";
 
 const Form = () => {
   const [state, formAction, isPending] = useActionState(login, undefined);
@@ -34,13 +35,7 @@ const Form = () => {
       {state?.errors?.email && <p>{state.errors.email}</p>}
       {state?.errors?.password && <p>{state.errors.password}</p>}
 
-      <button
-        disabled={isPending}
-        type="submit"
-        className="mt-10 w-full bg-white text-[#080710] py-4 text-lg font-semibold rounded-md hover:bg-opacity-90 transition-all"
-      >
-        Entrar
-      </button>
+      <Button disabled={isPending} label="Entrar" />
     </form>
   );
 };

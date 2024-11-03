@@ -8,11 +8,6 @@ type BarChartProps<T extends BarDatum> = {
   filter?: DashboardFilterProps;
 } & Omit<BarSvgProps<T>, "data" | "height" | "width">;
 
-type ChartData = {
-  type: string;
-  total: number;
-};
-
 const BarChart = <T extends BarDatum>({
   endpoint,
   keys,
@@ -20,8 +15,9 @@ const BarChart = <T extends BarDatum>({
   ...rest
 }: BarChartProps<T>) => {
   const { data, loading, error } = useDashboardChart({ endpoint, filter });
-  const filteredChartData = data as ChartData[];
+  const filteredChartData = data as BarDatum[];
 
+  console.log(data as T[]);
   if (loading) {
     return <p>Loading data...</p>;
   }
@@ -40,6 +36,31 @@ const BarChart = <T extends BarDatum>({
       indexBy={rest.indexBy}
       colors={["#F15338", "#FF9902", "#01ABCC"]}
       colorBy="indexValue"
+      legends={[
+        {
+          dataFrom: "keys",
+          anchor: "bottom-right",
+          direction: "column",
+          justify: false,
+          translateX: 120,
+          translateY: 0,
+          itemsSpacing: 2,
+          itemWidth: 100,
+          itemHeight: 20,
+          itemDirection: "left-to-right",
+          itemOpacity: 0.85,
+          symbolSize: 20,
+          effects: [
+            {
+              on: "hover",
+              style: {
+                itemOpacity: 1,
+              },
+            },
+          ],
+        },
+      ]}
+      role="application"
       {...rest}
     />
   ) : (
