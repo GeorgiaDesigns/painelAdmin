@@ -1,5 +1,8 @@
+"use server";
 import { notFound } from "next/navigation";
 import { Character } from "../lib/definitions";
+import { Location } from "../lib/definitions";
+import { getRandomRGBA } from "../lib/utils";
 
 export const getCharactersFrom = async (location: string) => {
   const res = await fetch(
@@ -21,10 +24,17 @@ export const getCharactersAlive = async () => {
   return data;
 };
 
-export const getAllLocations = async () => {
-  const res = await fetch("https://rickandmortyapi.com/api/location/");
-  const data: Location[] = await res.json();
+export const fetchLocations = async () => {
+  const res = await fetch(
+    "https://rickandmortyapi.com/api/location/?dimension=Dimension C-137"
+  );
+  const data = await res.json();
 
   if (!data) notFound();
-  return data;
+  return data.results.map((item: Location) => ({
+    id: item.id,
+    label: item.name,
+    value: item.residents.length,
+    color: getRandomRGBA(),
+  }));
 };

@@ -16,6 +16,7 @@ export interface Location {
   name: string;
   url: string;
   created: string;
+  residents: Character[];
 }
 
 export type User = {
@@ -23,3 +24,12 @@ export type User = {
   name: string;
   email: string;
 };
+
+export interface DashboardFilterProps {
+  location: string;
+}
+
+export interface Response {
+  info: { count: number; pages: number };
+  results: Location[];
+}
