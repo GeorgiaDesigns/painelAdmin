@@ -2,10 +2,9 @@
 
 import { login } from "@/app/login/actions";
 import { useActionState } from "react";
-import { useFormStatus } from "react-dom";
 
 const Form = () => {
-  const [state, formAction] = useActionState(login, undefined);
+  const [state, formAction, isPending] = useActionState(login, undefined);
 
   return (
     <form
@@ -19,35 +18,31 @@ const Form = () => {
       <input
         type="email"
         id="email"
+        name="email"
         placeholder="E-mail"
         className="mt-2 h-[50px] w-full bg-white bg-opacity-10 rounded-md px-4 text-sm placeholder-white placeholder-opacity-70 focus:outline-none"
       />
-      {state?.errors?.email && <p>{state.errors.email}</p>}
 
       <input
         type="password"
         id="password"
+        name="password"
         placeholder="Senha"
         className="mt-2 h-[50px] w-full bg-white bg-opacity-10 rounded-md px-4 text-sm placeholder-white placeholder-opacity-70 focus:outline-none"
       />
+      <br />
+      {state?.errors?.email && <p>{state.errors.email}</p>}
       {state?.errors?.password && <p>{state.errors.password}</p>}
 
-      <LoginButton />
+      <button
+        disabled={isPending}
+        type="submit"
+        className="mt-10 w-full bg-white text-[#080710] py-4 text-lg font-semibold rounded-md hover:bg-opacity-90 transition-all"
+      >
+        Entrar
+      </button>
     </form>
   );
 };
-
-function LoginButton() {
-  const { pending } = useFormStatus();
-  return (
-    <button
-      disabled={pending}
-      type="submit"
-      className="mt-10 w-full bg-white text-[#080710] py-4 text-lg font-semibold rounded-md hover:bg-opacity-90 transition-all"
-    >
-      Entrar
-    </button>
-  );
-}
 
 export default Form;
