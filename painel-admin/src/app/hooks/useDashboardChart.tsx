@@ -34,13 +34,13 @@ export function useDashboardChart({ endpoint, filter }: DashboardChartProps) {
             response = await fetchLocations();
             break;
           default:
-            throw new Error("Invalid endpoint");
+            throw new Error("Endpoint inválido");
         }
 
         setData(response);
         setLoading(false);
       } catch (error) {
-        console.error("Failed to fetch data:", error);
+        console.error("Erro ao fazer o chamado:", error);
         setError(true);
         setLoading(false);
       }

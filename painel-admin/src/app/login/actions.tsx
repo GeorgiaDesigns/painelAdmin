@@ -6,10 +6,10 @@ import { usuariosTeste } from "@/mock-users";
 import { redirect } from "next/navigation";
 
 const loginSchema = z.object({
-  email: z.string().email({ message: "Invalid email address" }).trim(),
+  email: z.string().email({ message: "Email inválido" }).trim(),
   password: z
     .string()
-    .min(8, { message: "Password must be at least 8 characters" })
+    .min(8, { message: "A senha deverá conter pelo menos 8 caracteres" })
     .trim(),
 });
 
@@ -29,7 +29,7 @@ export async function login(prevState: unknown, formData: FormData) {
   if (email !== user.email || password !== user.password) {
     return {
       errors: {
-        email: ["Invalid email or password"],
+        email: ["E-mail ou senha inválidos"],
       },
     };
   }
