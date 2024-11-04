@@ -35,7 +35,7 @@ const Form = () => {
       {state?.errors?.email && <p>{state.errors.email}</p>}
       {state?.errors?.password && <p>{state.errors.password}</p>}
 
-      <Button disabled={isPending} label="Entrar" />
+      <Button disabled={isPending} label="Entrar" type="submit" />
     </form>
   );
 };
