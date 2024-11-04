@@ -3,7 +3,6 @@ import { LineSvgProps, ResponsiveLine, Serie } from "@nivo/line";
 
 type LineChartProps = {
   endpoint: string;
-  keys?: string[];
   indexBy?: string;
 } & Omit<LineSvgProps, "data" | "height" | "width">;
 
