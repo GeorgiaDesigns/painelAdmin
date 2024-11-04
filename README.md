@@ -147,3 +147,4 @@ filter (string): futuramente será implementado para oferecer interatividade nas
 - [ ] Testes unitários
 - [ ] Implementar a página de cadastro
 - [ ] Implementar a autenticação com o banco de dados
+- [ ] Melhorar performance de carregamento
