@@ -19,6 +19,14 @@ export interface Location {
   residents: Character[];
 }
 
+export interface Episode {
+  id: string;
+  name: string;
+  air_date: Date;
+  episode: string;
+  characters: string[];
+}
+
 export type User = {
   id: string;
   name: string;
@@ -31,5 +39,5 @@ export interface DashboardFilterProps {
 
 export interface Response {
   info: { count: number; pages: number };
-  results: Location[];
+  results: Location[] | Character[] | Episode[];
 }

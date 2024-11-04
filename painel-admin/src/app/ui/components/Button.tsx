@@ -1,10 +1,14 @@
-import React from "react";
+import React, { AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
+
 import { motion } from "framer-motion";
+export type ButtonTypes =
+  | AnchorHTMLAttributes<HTMLAnchorElement>
+  | ButtonHTMLAttributes<HTMLButtonElement>;
 
 type ButtonProps = {
   label: string;
   disabled?: boolean;
-};
+} & ButtonTypes;
 
 const Button = ({ label, disabled = false }: ButtonProps) => {
   return (

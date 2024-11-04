@@ -27,7 +27,7 @@ const GaugeChart = <T,>({ endpoint, filter }: PieChartProps<T>) => {
   return data ? (
     <ResponsivePie
       data={filteredChartData}
-      margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
+      margin={{ top: 0, right: 80, bottom: 60, left: 80 }}
       innerRadius={0.5}
       padAngle={0.7}
       cornerRadius={3}
@@ -49,18 +49,18 @@ const GaugeChart = <T,>({ endpoint, filter }: PieChartProps<T>) => {
       defs={[]}
       legends={[
         {
-          anchor: "bottom",
-          direction: "row",
+          anchor: "left",
+          direction: "column",
           justify: false,
-          translateX: 0,
-          translateY: 56,
+          translateX: -80,
+          translateY: 115,
           itemsSpacing: 0,
           itemWidth: 100,
-          itemHeight: 18,
+          itemHeight: 15,
           itemTextColor: "#999",
           itemDirection: "left-to-right",
           itemOpacity: 1,
-          symbolSize: 18,
+          symbolSize: 15,
           symbolShape: "circle",
           effects: [
             {
@@ -72,6 +72,19 @@ const GaugeChart = <T,>({ endpoint, filter }: PieChartProps<T>) => {
           ],
         },
       ]}
+      tooltip={({ datum: { label, value, color } }) => (
+        <div
+          style={{
+            padding: 12,
+            color,
+            background: "#222222",
+          }}
+        >
+          <strong>
+            {label}: {value}
+          </strong>
+        </div>
+      )}
     />
   ) : (
     <p>Não há dados disponíveis</p>

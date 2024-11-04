@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { DashboardFilterProps } from "../lib/definitions";
-import { fetchLocations, getCharactersAlive } from "../dashboard/actions";
+import {
+  fetchCharactersByStatus,
+  fetchCharactersPerEpisode,
+  fetchLocations,
+} from "../dashboard/actions";
 
 type DashboardChartProps = {
   endpoint: string;
@@ -20,11 +24,11 @@ export function useDashboardChart({ endpoint, filter }: DashboardChartProps) {
         let response;
 
         switch (endpoint) {
-          // case "charactersFrom":
-          //   response = await getCharactersFrom(filter.location);
-          //   break;
-          case "charactersAlive":
-            response = await getCharactersAlive();
+          case "charactersperEpisode":
+            response = await fetchCharactersPerEpisode();
+            break;
+          case "charactersbyStatus":
+            response = await fetchCharactersByStatus();
             break;
           case "locations":
             response = await fetchLocations();

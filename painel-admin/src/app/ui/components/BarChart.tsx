@@ -5,19 +5,19 @@ import { BarDatum, BarSvgProps, ResponsiveBar } from "@nivo/bar";
 type BarChartProps<T extends BarDatum> = {
   endpoint: string;
   keys?: string[];
+  indexBy?: string;
   filter?: DashboardFilterProps;
 } & Omit<BarSvgProps<T>, "data" | "height" | "width">;
 
 const BarChart = <T extends BarDatum>({
   endpoint,
   keys,
+  indexBy,
   filter,
-  ...rest
 }: BarChartProps<T>) => {
   const { data, loading, error } = useDashboardChart({ endpoint, filter });
   const filteredChartData = data as BarDatum[];
 
-  console.log(data as T[]);
   if (loading) {
     return <p>Loading data...</p>;
   }
@@ -30,38 +30,51 @@ const BarChart = <T extends BarDatum>({
     <ResponsiveBar
       data={data as T[]}
       keys={keys}
+      margin={{ top: 0, right: 40, bottom: 20, left: 40 }}
       padding={0.5}
       enableGridY={false}
       enableGridX={false}
-      indexBy={rest.indexBy}
-      colors={["#F15338", "#FF9902", "#01ABCC"]}
+      indexBy={indexBy}
       colorBy="indexValue"
-      legends={[
-        {
-          dataFrom: "keys",
-          anchor: "bottom-right",
-          direction: "column",
-          justify: false,
-          translateX: 120,
-          translateY: 0,
-          itemsSpacing: 2,
-          itemWidth: 100,
-          itemHeight: 20,
-          itemDirection: "left-to-right",
-          itemOpacity: 0.85,
-          symbolSize: 20,
-          effects: [
-            {
-              on: "hover",
-              style: {
-                itemOpacity: 1,
-              },
-            },
-          ],
-        },
-      ]}
+      // legends={[
+      //   {
+      //     dataFrom: "keys",
+      //     anchor: "right",
+      //     direction: "column",
+      //     justify: false,
+      //     translateX: 80,
+      //     translateY: 40,
+      //     itemsSpacing: 8,
+      //     itemWidth: 100,
+      //     itemHeight: 15,
+      //     itemTextColor: "#999",
+      //     itemDirection: "left-to-right",
+      //     symbolShape: "circle",
+      //     symbolSize: 15,
+      //     effects: [
+      //       {
+      //         on: "hover",
+      //         style: {
+      //           itemTextColor: "#000",
+      //         },
+      //       },
+      //     ],
+      //   },
+      // ]}
       role="application"
-      {...rest}
+      tooltip={({ id, value, color }) => (
+        <div
+          style={{
+            padding: 12,
+            color,
+            background: "#222222",
+          }}
+        >
+          <strong>
+            {id}: {value}
+          </strong>
+        </div>
+      )}
     />
   ) : (
     <p>Não há dados disponíveis</p>
